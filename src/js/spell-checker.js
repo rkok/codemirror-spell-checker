@@ -44,7 +44,7 @@ function CodeMirrorSpellChecker(options) {
           CodeMirrorSpellChecker.aff_data = xhr_aff.responseText;
           CodeMirrorSpellChecker.num_loaded++;
 
-          if (CodeMirrorSpellChecker.num_loaded == 2) {
+          if (CodeMirrorSpellChecker.num_loaded === 2) {
             CodeMirrorSpellChecker.typo = new Typo(
               "en_US",
               CodeMirrorSpellChecker.aff_data,
@@ -72,7 +72,7 @@ function CodeMirrorSpellChecker(options) {
           CodeMirrorSpellChecker.dic_data = xhr_dic.responseText;
           CodeMirrorSpellChecker.num_loaded++;
 
-          if (CodeMirrorSpellChecker.num_loaded == 2) {
+          if (CodeMirrorSpellChecker.num_loaded === 2) {
             CodeMirrorSpellChecker.typo = new Typo(
               "en_US",
               CodeMirrorSpellChecker.aff_data,
