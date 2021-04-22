@@ -9,7 +9,6 @@ var gulp = require("gulp"),
 	pkg = require("./package.json"),
 	debug = require("gulp-debug"),
 	eslint = require("gulp-eslint"),
-	prettify = require("gulp-jsbeautifier"),
 	browserify = require("browserify"),
 	source = require("vinyl-source-stream"),
 	rename = require("gulp-rename");
@@ -22,25 +21,13 @@ var banner = ["/**",
 	" */",
 	""].join("\n");
 
-gulp.task("prettify-js", function() {
-	return gulp.src("./src/js/spell-checker.js")
-		.pipe(prettify({js: {brace_style: "collapse", indent_char: "\t", indent_size: 1, max_preserve_newlines: 3, space_before_conditional: false}}))
-		.pipe(gulp.dest("./src/js"));
-});
-
-gulp.task("prettify-css", function() {
-	return gulp.src("./src/css/spell-checker.css")
-		.pipe(prettify({css: {indentChar: "\t", indentSize: 1}}))
-		.pipe(gulp.dest("./src/css"));
-});
-
-gulp.task("lint", gulp.series("prettify-js", function() {
+gulp.task("lint", function() {
 	return gulp.src("./src/js/**/*.js")
 		.pipe(debug())
 		.pipe(eslint())
 		.pipe(eslint.format())
 		.pipe(eslint.failAfterError());
-}));
+});
 
 function taskBrowserify(opts) {
 	return browserify("./src/js/spell-checker.js", opts)
@@ -74,7 +61,7 @@ gulp.task("scripts", gulp.series("browserify:debug", "browserify", "lint", funct
 		.pipe(gulp.dest("./dist/"));
 }));
 
-gulp.task("styles", gulp.series("prettify-css", function() {
+gulp.task("styles", function() {
 	var css_files = [
 		"./src/css/*.css",
 	];
@@ -89,6 +76,6 @@ gulp.task("styles", gulp.series("prettify-css", function() {
 		.pipe(buffer())
 		.pipe(header(banner, {pkg: pkg}))
 		.pipe(gulp.dest("./dist/"));
-}));
+});
 
 gulp.task("default", gulp.series("scripts", "styles"));
