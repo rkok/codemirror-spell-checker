@@ -40,7 +40,8 @@ load/require `overlay.min.js` if you haven't already.
 CodeMirrorSpellChecker({
   codeMirrorInstance: CodeMirror,
   dictionary: {
-    rootUrl: 'https://cdn.example.com/codemirror.spell-checker/latest/'
+    rootUrl: 'https://cdn.example.com/codemirror.spell-checker/latest/',
+    language: 'en_US'
   }
 });
 

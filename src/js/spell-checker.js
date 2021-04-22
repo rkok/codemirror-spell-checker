@@ -14,6 +14,8 @@ function CodeMirrorSpellChecker(options) {
     options.dictionary.rootUrl ||
     "https://cdn.jsdelivr.net/codemirror.spell-checker/latest/";
 
+  options.dictionary.language = options.dictionary.language || "en_US";
+
   // Verify
   if (
     typeof options.codeMirrorInstance !== "function" ||
@@ -39,7 +41,11 @@ function CodeMirrorSpellChecker(options) {
     if (!CodeMirrorSpellChecker.aff_loading) {
       CodeMirrorSpellChecker.aff_loading = true;
       var xhr_aff = new XMLHttpRequest();
-      xhr_aff.open("GET", options.dictionary.rootUrl + "en_US.aff", true);
+      xhr_aff.open(
+        "GET",
+        options.dictionary.rootUrl + options.dictionary.language + ".aff",
+        true
+      );
       xhr_aff.onload = function () {
         if (xhr_aff.readyState === 4 && xhr_aff.status === 200) {
           CodeMirrorSpellChecker.aff_data = xhr_aff.responseText;
@@ -63,7 +69,11 @@ function CodeMirrorSpellChecker(options) {
     if (!CodeMirrorSpellChecker.dic_loading) {
       CodeMirrorSpellChecker.dic_loading = true;
       var xhr_dic = new XMLHttpRequest();
-      xhr_dic.open("GET", options.dictionary.rootUrl + "en_US.dic", true);
+      xhr_dic.open(
+        "GET",
+        options.dictionary.rootUrl + options.dictionary.language + ".dic",
+        true
+      );
       xhr_dic.onload = function () {
         if (xhr_dic.readyState === 4 && xhr_dic.status === 200) {
           CodeMirrorSpellChecker.dic_data = xhr_dic.responseText;
